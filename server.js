@@ -21,9 +21,9 @@ app.get("/", (req, res) => {
 const breadsController = require("./controllers/bread_controller");
 app.use("/breads", breadsController);
 
-// 404 catch-all route
+// 404 page & catch-all route
 app.get("*", (req, res) => {
-  res.send("404");
+  res.render("404");
 });
 
 //Listen

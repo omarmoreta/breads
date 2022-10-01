@@ -12,9 +12,8 @@ const Default = (html) => {
             <body>
                 <div className="wrapper">
                     <header>
-                        <h1><a href="/bread">BreadCRUD</a></h1>
+                        <h1><a href="/breads">BreadCRUD</a></h1>
                     </header>
-                    <h1>{html.title || "Default"}</h1>
                     <div className="container">
                         {html.children}
                     </div>
