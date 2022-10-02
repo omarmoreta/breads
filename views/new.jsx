@@ -1,4 +1,5 @@
 const React = require("react")
+const bread = require("../models/bread")
 const Default = require("./layouts/default")
 
 const New = () => {
@@ -9,7 +10,7 @@ const New = () => {
                 <label htmlFor="name">Name</label>
                 <input type="text" name="name" id="name" required/>
                 <label htmlFor="hasGluten">Has Gluten?</label>
-                <input type="checkbox" name="hasGluten" id="hasGluten" defaultChecked />
+                <input type="checkbox" name="hasGluten" id="hasGluten" defaultChecked={bread.hasGluten} />
                 <br />
                 <input type="submit"/>
             </form>

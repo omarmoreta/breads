@@ -13,6 +13,14 @@ breads.get("/new", (req, res) => {
   res.render("new");
 });
 
+//Edit
+breads.get("/:arrayIndex/edit", (req, res) => {
+  res.render("edit", {
+    bread: Bread[req.params.arrayIndex],
+    index: req.params.arrayIndex,
+  });
+});
+
 //Show
 breads.get("/:arrayIndex", (req, res) => {
   if (Bread[req.params.arrayIndex]) {
@@ -21,8 +29,19 @@ breads.get("/:arrayIndex", (req, res) => {
       index: req.params.arrayIndex,
     });
   } else {
-    res.render("404");
+    res.status(404).render("404");
   }
+});
+
+//Update
+breads.put("/:arrayIndex", (req, res) => {
+  if (req.body.hasGluten === "on") {
+    req.body.hasGluten = true;
+  } else {
+    req.body.hasGluten = false;
+  }
+  Bread[req.params.arrayIndex] = req.body;
+  res.status(200).redirect(`/breads/${req.params.arrayIndex}`);
 });
 
 //Create
@@ -38,7 +57,7 @@ breads.post("/", (req, res) => {
     req.body.hasGluten = "false";
   }
   Bread.push(req.body);
-  res.redirect("/breads");
+  res.status(200).redirect("/breads");
 });
 
 //Delete
