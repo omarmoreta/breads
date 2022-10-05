@@ -24,7 +24,7 @@ breads.get("/:arrayIndex/edit", (req, res) => {
 //Show
 breads.get("/:arrayIndex", (req, res) => {
   if (Bread[req.params.arrayIndex]) {
-    res.render("Show", {
+    res.render("show", {
       bread: Bread[req.params.arrayIndex],
       index: req.params.arrayIndex,
     });
