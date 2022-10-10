@@ -1,6 +1,7 @@
 const express = require("express");
 const breads = express.Router();
 const Bread = require("../models/bread");
+const seed = require("../seeders/seeds");
 
 //Index
 breads.get("/", (req, res) => {
@@ -14,11 +15,19 @@ breads.get("/new", (req, res) => {
   res.render("new");
 });
 
+//Seed
+breads.get("/data/seed", (req, res) => {
+  Bread.insertMany(seed).then((createdBreads) => {
+    res.redirect("/breads");
+  });
+});
+
 //Edit
-breads.get("/:arrayIndex/edit", (req, res) => {
-  res.render("edit", {
-    bread: Bread[req.params.arrayIndex],
-    index: req.params.arrayIndex,
+breads.get("/:id/edit", (req, res) => {
+  Bread.findById(req.params.id).then((foundBread) => {
+    res.render("edit", {
+      bread: foundBread,
+    });
   });
 });
 
@@ -42,8 +51,12 @@ breads.put("/:arrayIndex", (req, res) => {
   } else {
     req.body.hasGluten = false;
   }
-  Bread[req.params.arrayIndex] = req.body;
-  res.status(200).redirect(`/breads/${req.params.arrayIndex}`);
+  Bread.findByIdAndUpdate(req.params.arrayIndex, req.body, { new: true }).then(
+    (updatedBread) => {
+      console.log(updatedBread);
+      res.status(200).redirect(`/breads/${req.params.id}`);
+    }
+  );
 });
 
 //Create
@@ -61,9 +74,10 @@ breads.post("/", (req, res) => {
 });
 
 //Delete
-breads.delete("/:indexArray", (req, res) => {
-  Bread.splice(req.params.indexArray, 1);
-  res.status(303).redirect("/breads");
+breads.delete("/:id", (req, res) => {
+  Bread.findByIdAndDelete(req.params.id).then((deletedBread) => {
+    res.status(303).redirect("/breads");
+  });
 });
 
 module.exports = breads;
