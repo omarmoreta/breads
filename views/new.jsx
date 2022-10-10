@@ -13,6 +13,15 @@ const New = () => {
                 <input type="checkbox" name="hasGluten" id="hasGluten" defaultChecked={bread.hasGluten} />
                 <br />
                 <input type="submit"/>
+                <label htmlFor="baker">Baker</label>
+                <select name="baker" id="baker">
+                    <option value="Rachel">Rachel</option>
+                    <option value="Monica">Monica</option>
+                    <option value="Joey">Joey</option>
+                    <option value="Chandler">Chandler</option>
+                    <option value="Ross">Ross</option>
+                    <option value="Phoebe">Phoebe</option>
+                </select>
             </form>
             <div className="backButton">
                 <a href="/breads"><button>Go back to the index</button></a>
