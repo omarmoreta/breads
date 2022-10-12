@@ -1,7 +1,7 @@
 const express = require("express");
 const breads = express.Router();
 const Bread = require("../models/bread");
-const seed = require("../seeders/seeds");
+const breadSeeder = require("../seeders/bread_seeds");
 const Baker = require("../models/bakers");
 
 //Index
@@ -28,7 +28,7 @@ breads.get("/new", (req, res) => {
 
 //Seed
 breads.get("/data/seed", (req, res) => {
-  Bread.insertMany(seed).then((createdBreads) => {
+  Bread.insertMany(breadSeeder).then((createdBreads) => {
     res.redirect("/breads");
   });
 });
@@ -50,6 +50,8 @@ breads.get("/:id", (req, res) => {
   Bread.findById(req.params.id)
     .populate("baker")
     .then((foundBread) => {
+      // const bakedBy = foundBread.getBakedBy();
+      // console.log(bakedBy);
       res.render("show", {
         bread: foundBread,
       });

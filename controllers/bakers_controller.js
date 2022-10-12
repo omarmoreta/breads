@@ -1,10 +1,10 @@
 const express = require("express");
 const baker = express.Router();
 const Baker = require("../models/bakers");
-const bakerSeedData = require("../seeders/baker_seed");
+const bakerSeeder = require("../seeders/baker_seeds");
 
 baker.get("/data/seed", (req, res) => {
-  Baker.insertMany(bakerSeedData).then(res.redirect("/breads"));
+  Baker.insertMany(bakerSeeder).then(res.redirect("/breads"));
 });
 
 baker.get("/", (req, res) => {
